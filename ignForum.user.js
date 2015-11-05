@@ -8,7 +8,27 @@
 // @downloadURL  https://raw.githubusercontent.com/starise/ign-forum-script/master/ignForum.user.js
 // @updateURL    https://raw.githubusercontent.com/starise/ign-forum-script/master/ignForum.user.js
 // ==/UserScript==
-/* jshint -W097 */
-'use strict';
 
-document.body.style.background = "#000";
+var ignForum = {
+
+  el: {
+    body: $('body'),
+    pageContent: $('.pageContent'),
+    primaryContent: $('.primaryContent'),
+    discussionList: $('.sectionMain, .discussionListItem'),
+  },
+
+  init: function() {
+    ignForum.blackTheme();
+  },
+
+  blackTheme: function() {
+    ignForum.el.body.css('background-color', '#000');
+    ignForum.el.pageContent.css('background-color', '#f1f1f1');
+    ignForum.el.primaryContent.css('background-color', '#f1f1f1');
+    ignForum.el.discussionList.css('background-color', '#f1f1f1');
+  },
+
+};
+
+ignForum.init();
