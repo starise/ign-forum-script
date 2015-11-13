@@ -18,6 +18,7 @@ var ignForum = {
     pageContent: $('.pageContent'),
     messageContent: $('.primaryContent'),
     messageList: $('#messageList'),
+    message: $('.message'),
   },
 
   init: function() {
@@ -35,6 +36,7 @@ var ignForum = {
 
   updateMessages: function() {
     ignForum.el.messageContent.css('background-color', '#f1f1f1');
+    ignForum.el.message.css('border-top', '1px solid #000');
   },
 
   /**
