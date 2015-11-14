@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         IGN.it Forum Custom Theme
 // @namespace    https://github.com/starise/ign-forum-script
-// @version      0.2.0
+// @version      0.3.0
 // @author       starise
 // @match        *://it.ign.com/forum/*
 // @grant        none
