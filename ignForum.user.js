@@ -9,50 +9,38 @@
 // @updateURL    https://raw.githubusercontent.com/starise/ign-forum-script/master/ignForum.user.js
 // ==/UserScript==
 
-var ignForum = {
+function updatePage() {
+  var body           = $('body'),
+      discussionList = $('.sectionMain, .discussionListItem'),
+      pageContent    = $('.pageContent'),
+      messageList    = $('#messageList');
 
-  el: {
-    body: $('body'),
-    container: $('div.loginButton_mobile, #forumbar, #headerMover, #modbar'),
-    discussionList: $('.sectionMain, .discussionListItem'),
-    pageContent: $('.pageContent'),
-    messageContent: $('.primaryContent'),
-    messageList: $('#messageList'),
-    message: $('.message'),
-  },
+  body.css('background-color', '#000');
+  pageContent.css('background-color', '#f1f1f1');
+  discussionList.css('background-color', '#f1f1f1');
+}
 
-  init: function() {
-    ignForum.blackTheme();
-    ignForum.watchPosts();
-  },
+function updatePosts() {
+  var messageContent = $('.primaryContent'),
+      messageList    = $('#messageList'),
+      message        = $('.message');
 
-  blackTheme: function() {
-    ignForum.el.body.css('background-color', '#000');
-    ignForum.el.container.css('max-width', '1100px');
-    ignForum.el.pageContent.css('background-color', '#f1f1f1');
-    ignForum.el.discussionList.css('background-color', '#f1f1f1');
-    ignForum.updateMessages();
-  },
+  messageContent.css('background-color', '#f1f1f1');
+  message.css('border-top', '1px solid #000');
+}
 
-  updateMessages: function() {
-    ignForum.el.messageContent.css('background-color', '#f1f1f1');
-    ignForum.el.message.css('border-top', '1px solid #000');
-  },
+// Use MutationObserver to determine new ajax posts
+// https://developer.mozilla.org/it/docs/Web/API/MutationObserver
+function watchPosts() {
+  var target = document.querySelector('#messageList');
+  var config = { attributes: true, childList: true, characterData: true };
+  var observer = new MutationObserver(function(mutations, observer) {
+    // console.log(mutations); // debug
+    updatePosts();
+  });
+  observer.observe(target, config);
+}
 
-  /**
-   * Use MutationObserver to determine new ajax posts
-   * https://developer.mozilla.org/it/docs/Web/API/MutationObserver
-   */
-  watchPosts: function() {
-    var target = ignForum.el.messageList[0];
-    var config = { attributes: true, childList: true, characterData: true };
-    var observer = new MutationObserver(function(mutations, observer) {
-      // console.log(mutations); // debug
-      ignForum.updateMessages();
-    });
-    observer.observe(target, config);
-  },
-
-};
-
-ignForum.init();
+updatePage();
+updatePosts();
+watchPosts();
